@@ -1,7 +1,15 @@
 param location string
+
+@minLength(3)
+@maxLength(12)
 param projectName string
+
+@minLength(3)
 param environment string
+
+@minLength(13)
 param uniqueSuffix string
+
 param workloadSubnetId string
 param logAnalyticsWorkspaceId string
 param tags object
@@ -74,7 +82,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
 }
 
 resource storageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(storageAccount.id, workloadIdentity.properties.principalId, storageBlobDataContributorRoleId)
+  name: guid(storageAccount.id, workloadIdentity.id, storageBlobDataContributorRoleId)
   scope: storageAccount
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', storageBlobDataContributorRoleId)
@@ -84,7 +92,7 @@ resource storageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-
 }
 
 resource keyVaultRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(keyVault.id, workloadIdentity.properties.principalId, keyVaultSecretsUserRoleId)
+  name: guid(keyVault.id, workloadIdentity.id, keyVaultSecretsUserRoleId)
   scope: keyVault
   properties: {
     roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', keyVaultSecretsUserRoleId)

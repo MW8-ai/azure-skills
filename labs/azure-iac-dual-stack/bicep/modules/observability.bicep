@@ -8,13 +8,13 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   location: location
   tags: tags
   properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
     retentionInDays: 30
     features: {
       enableLogAccessUsingOnlyResourcePermissions: true
     }
-  }
-  sku: {
-    name: 'PerGB2018'
   }
 }
 

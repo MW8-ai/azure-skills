@@ -25,10 +25,13 @@ resource "azurerm_subnet" "workload" {
   virtual_network_name = azurerm_virtual_network.lab.name
   address_prefixes     = ["10.20.1.0/24"]
 
-  service_endpoints = [
-    "Microsoft.KeyVault",
-    "Microsoft.Storage",
-  ]
+  service_endpoint {
+    service = "Microsoft.KeyVault"
+  }
+
+  service_endpoint {
+    service = "Microsoft.Storage"
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "workload" {
