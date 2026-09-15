@@ -1,0 +1,4 @@
+project_name = "iaclab"
+environment  = "dev"
+location     = "eastus2"
+owner        = "MW8-ai"
